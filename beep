@@ -1,0 +1,31 @@
+const int speakerPin = 9; // Pin connected to the speaker
+const unsigned long interval = 600000; // 10 minutes in milliseconds
+unsigned long previousMillis = 0;
+
+void setup() {
+  pinMode(speakerPin, OUTPUT); // Set the speaker pin as an output
+  beep(); // Start with three beeps
+  previousMillis = millis(); // Initialize previousMillis
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+
+  // Check if 10 minutes have passed
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis; // Save the last time we beeped
+    beep(); // Beep three times
+  }
+}
+
+void beep() {
+  for (int j = 0; j < 3; j++) { // Repeat three times
+    for (int i = 0; i < 3; i++) { // Three beeps
+      tone(speakerPin, 1000); // Play a tone at 1000 Hz
+      delay(200); // Wait for 200 milliseconds
+      noTone(speakerPin); // Stop the tone
+      delay(200); // Wait before the next beep
+    }
+    delay(500); // 500 ms pause after each set of three beeps
+  }
+}
